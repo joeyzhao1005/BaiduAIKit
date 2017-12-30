@@ -30,10 +30,10 @@ public class RecogEventAdapter implements EventListener {
     @Override
     public void onEvent(String name, String params, byte[] data, int offset, int length) {
         currentJson = params;
-        String logMessage = "name:" + name + "; params:" + params;
-
-        // logcat 中 搜索RecogEventAdapter，即可以看见下面一行的日志
-        Log.i(TAG, logMessage);
+//        String logMessage = "name:" + name + "; params:" + params;
+//
+//        // logcat 中 搜索RecogEventAdapter，即可以看见下面一行的日志
+//        Log.i(TAG, logMessage);
         if (false) { //此次可以调试，不需要后续逻辑
             return;
         }

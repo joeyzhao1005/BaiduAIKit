@@ -41,14 +41,24 @@ public class PidBuilder {
         map = new HashMap<String, Integer>(16);
 
         /**
-         * 根据这个来配置 pid 的  pid 感觉是百度内置的一个什么鬼引擎
-         * 有点像 unite中的 appid
-         *
-         * 15361 标识普通话语义理解 这个鬼没有标点符号，配置了 input 也没有作用
-         *
-         * 1537  普通话语音识别 带标点符号
-         *
-         * 1736  普通话语音识别 不带标点符号
+         在线参数， 请根据语言， 输入法或者搜索模型及是否需要在线语义，来选择PID。
+
+         语言：目前支持中文普通话，四川话，粤语，和英语四个
+         输入法模型：适用于较长的句子输入。默认有标点，不支持在线语义; 开启标点后，不支持本地语义。另外PROP垂直领域参数无效。
+         搜索模型：适用于较短的句子输入。无标点，支持在线语义和本地语义。
+         在线语义：在线语义只支持普通话（本地语义也是只支持普通话）
+         PID	语言	模型	是否有标点	在线语义	备注
+         1536	普通话	搜索模型	无标点	不支持	默认PID
+         15361	普通话	搜索模型	无标点	支持
+         1537	普通话	输入法模型	可以有标点	不支持
+         1736	英语	搜索模型	无标点	不支持
+         1737	英语	输入法模型	可以有标点	不支持
+         1636	粤语	搜索模型	无标点	不支持
+         1637	粤语	输入法模型	可以有标点	不支持
+         1836	四川话	搜索模型	无标点	不支持
+         1837	四川话	输入法模型	可以有标点	不支持
+         1936	普通话	远场模型	有标点	不支持
+         19361	普通话	远场模型 有标点	支持
          */
 
         createPid(1536, PUDONGHUA, SEARCH, false);
@@ -62,7 +72,7 @@ public class PidBuilder {
         createPid(1836, SICHUAN, SEARCH, false);
         createPid(1837, SICHUAN, INPUT, false);
         createPid(1936, PUDONGHUA, FAR, false);
-        createPid(1936, PUDONGHUA, FAR, true);
+        createPid(19361, PUDONGHUA, FAR, true);
     }
 
     public static PidBuilder create() {

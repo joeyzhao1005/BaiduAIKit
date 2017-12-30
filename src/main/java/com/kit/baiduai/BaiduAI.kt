@@ -6,9 +6,12 @@ import com.kit.baiduai.control.BDAIRecognizer
 import com.kit.baiduai.recognization.IRecogListener
 import com.kit.baiduai.recognization.PidBuilder
 import com.kit.baiduai.recognization.StatusRecogListener
+import com.kit.utils.FileUtils
 import com.kit.utils.RandomUtils
 import com.kit.utils.ResWrapper
+import com.kit.utils.StringUtils
 import com.kit.utils.log.Zog
+import java.io.File
 
 /**
  * Created by Zhao on 2017/12/23.
@@ -37,7 +40,6 @@ class ASR {//语音听写
         if (bdaiRecognizer != null) {
             return this
         }
-
         this.recogListener = rl
         //val statusRecogListener = StatusRecogListener()
         bdaiRecognizer = BDAIRecognizer(ResWrapper.getInstance().applicationContext, recogListener)
@@ -49,10 +51,15 @@ class ASR {//语音听写
         val pid = PidBuilder.create()
                 .model(PidBuilder.INPUT) //如识别短句，不需要需要逗号，将PidBuilder.INPUT改为搜索模型PidBuilder.SEARCH
                 .toPId()
+
+        if (!StringUtils.isEmptyOrNullStr(outputPath) && !FileUtils.isExists(outputPath)) {
+            FileUtils.mkDir(outputPath.substring(0, outputPath.lastIndexOf(File.separator)))
+        }
+
         params = hashMapOf(SpeechConstant.ACCEPT_AUDIO_DATA to true
                 , SpeechConstant.OUT_FILE to outputPath
                 , SpeechConstant.PID to pid
-                , SpeechConstant.DISABLE_PUNCTUATION to true
+                , SpeechConstant.DISABLE_PUNCTUATION to false
                 , SpeechConstant.ACCEPT_AUDIO_VOLUME to false)
         return this
     }
