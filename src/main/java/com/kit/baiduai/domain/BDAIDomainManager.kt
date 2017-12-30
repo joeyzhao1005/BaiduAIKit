@@ -21,6 +21,9 @@ object BDAIDomainManager {
 
 
     /**
+     *
+     * 由语意理解，得到 domain， 然后做分发
+     *
      * 分发 domain
      */
     fun dispatch(nluResult: String?, onDomainDispatch: OnDomainDispatch?) {
@@ -83,7 +86,9 @@ object BDAIDomainManager {
         if (rawText == null || StringUtils.isEmptyOrNullStr(rawText))
             return false
 
-        if (interruptApp(rawText, onDomainDispatch)) {
+        if (localInterruptApp(rawText, onDomainDispatch)) {
+            return true
+        }else if(localInterruptIdeaMode(rawText,onDomainDispatch)){
             return true
         }
 
@@ -92,9 +97,23 @@ object BDAIDomainManager {
 
 
     /**
+     * 本地拦截 切换到闪念胶囊模式
+     */
+    private fun localInterruptIdeaMode(rawText: String, onDomainDispatch: OnDomainDispatch?): Boolean {
+        if (rawText in  listOf<String>("闪念胶囊","闪念模式","胶囊模式")) {
+
+            onDomainDispatch?.onToIdeaMode()
+
+            return true
+        }
+
+        return false
+    }
+
+    /**
      * 本地拦截 app 类型
      */
-    private fun interruptApp(rawText: String, onDomainDispatch: OnDomainDispatch?): Boolean {
+    private fun localInterruptApp(rawText: String, onDomainDispatch: OnDomainDispatch?): Boolean {
         if (rawText.startsWith("打开") || rawText.startsWith("启动")) {
             var appName = rawText.substring(2)
             Zog.i("appName:$appName")
@@ -160,6 +179,7 @@ object BDAIDomainManager {
     interface OnDomainDispatch {
         fun onDomainWeather(baiduDomainEntity: BDAIDomainEntity)
         fun onDomainApp(baiduDomainEntity: BDAIDomainEntity)
+        fun onToIdeaMode()
 
         fun onDomainNone(string: String?)
 
