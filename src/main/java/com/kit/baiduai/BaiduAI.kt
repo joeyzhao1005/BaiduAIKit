@@ -148,18 +148,20 @@ class BaiduAI private constructor() {
 
 
     companion object {
-        fun errorAnswer(): String {
-            val default = listOf("呃...并没有听到你说什么...", "对不起，我没听清...", "emmmm...你说神马？？？", "你可以对我说：打开支付宝", "你可以对我说：今天天气怎么样")
-            val random = RandomUtils.getRandomIntNum(0, default.size - 1)
 
-            return default[random]
+        fun listenNothing(): String {
+            val default = listOf("呃...并没有听到你说什么...", "对不起，我没听清...", "emmmm...你说神马？？？", "你说话了么？可以大声一点点~")
+            return default[RandomUtils.getRandomIntNum(0, default.size - 1)]
+        }
+
+        fun suggestion(): String {
+            val default = listOf("你可以对我说：今天天气怎么样？", "语音打开APP，请大声对我说：打开微信", "我有速记功能，请对我说：闪念胶囊！")
+            return default[RandomUtils.getRandomIntNum(0, default.size - 1)]
         }
 
         fun defaultAnswer(): String {
             val default = listOf("我是笨笨，最聪明的笨笨~", "我没能理解你在说什么...", "智商低不是我的锅，微博@Joey赵 问他为什么把我做的辣么傻！")
-            val random = RandomUtils.getRandomIntNum(0, default.size - 1)
-
-            return default[random]
+            return default[RandomUtils.getRandomIntNum(0, default.size - 1)]
         }
 
         fun get(): BaiduAI? {
