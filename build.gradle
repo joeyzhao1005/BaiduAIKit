@@ -35,4 +35,15 @@ android {
         }
 
     }
+
+    flavorDimensions "default"
+    productFlavors {
+        zhao {}
+    }
+
+    buildTypes {
+        debug {}
+        prePublish {}
+        release {}
+    }
 }

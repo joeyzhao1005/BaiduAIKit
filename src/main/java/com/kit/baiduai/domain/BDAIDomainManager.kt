@@ -54,24 +54,31 @@ object BDAIDomainManager {
 
 
             Zog.i("dispatch:" + domain)
+            Zog.i("res0:" + res0)
 
             var bdaiDomainEntity: BDAIDomainEntity? = null
             try {
                 bdaiDomainEntity = GsonUtils.getObj(res0.toString(), BDAIDomainEntity::class.java)
             } catch (e: Exception) {
+                Zog.showException(e)
             }
 
+            Zog.i("bdaiDomainEntity:" + bdaiDomainEntity)
             if (bdaiDomainEntity == null) {
                 onDomainDispatch?.onDomainNone(nluResult)
+                Zog.i("onDomainWeather:onDomainNone")
                 return
             }
 
+            Zog.i("bdaiDomainEntity.domain:"+bdaiDomainEntity.domain)
             when (bdaiDomainEntity.domain.toUpperCase()) {
                 BDAIDomain.WEATHER.name -> {
+                    Zog.i("onDomainWeather:"+bdaiDomainEntity)
                     onDomainDispatch?.onDomainWeather(bdaiDomainEntity)
                 }
 
                 else -> {
+                    Zog.i("onDomainWeather:"+nluResult)
                     onDomainDispatch?.onDomainNone(nluResult)
                 }
             }

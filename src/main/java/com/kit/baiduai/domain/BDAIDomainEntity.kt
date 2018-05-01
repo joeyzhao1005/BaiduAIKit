@@ -6,5 +6,5 @@ import com.google.gson.annotations.SerializedName
  * Created by Zhao on 2017/12/23.
  */
 
-data class BDAIDomainEntity(val domain: String, val intent: String?, @SerializedName("object") val data: HashMap<String,String>?, val score: Double?) {
+data class BDAIDomainEntity(@SerializedName("domain") val domain: String, @SerializedName("intent") val intent: String?, @SerializedName("object") val data: HashMap<String, String>?, @SerializedName("score") val score: Double?) {
 }
