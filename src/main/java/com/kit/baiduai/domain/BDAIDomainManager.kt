@@ -64,21 +64,20 @@ object BDAIDomainManager {
             }
 
             Zog.i("bdaiDomainEntity:" + bdaiDomainEntity)
-            if (bdaiDomainEntity == null) {
+            if (bdaiDomainEntity == null || bdaiDomainEntity.domain == null) {
                 onDomainDispatch?.onDomainNone(nluResult)
                 Zog.i("onDomainWeather:onDomainNone")
                 return
             }
 
-            Zog.i("bdaiDomainEntity.domain:"+bdaiDomainEntity.domain)
-            when (bdaiDomainEntity.domain.toUpperCase()) {
+            when (bdaiDomainEntity.domain?.toUpperCase()) {
                 BDAIDomain.WEATHER.name -> {
-                    Zog.i("onDomainWeather:"+bdaiDomainEntity)
+                    Zog.i("onDomainWeather:" + bdaiDomainEntity)
                     onDomainDispatch?.onDomainWeather(bdaiDomainEntity)
                 }
 
                 else -> {
-                    Zog.i("onDomainWeather:"+nluResult)
+                    Zog.i("onDomainWeather:" + nluResult)
                     onDomainDispatch?.onDomainNone(nluResult)
                 }
             }
@@ -95,7 +94,7 @@ object BDAIDomainManager {
 
         if (localInterruptApp(rawText, onDomainDispatch)) {
             return true
-        }else if(localInterruptIdeaMode(rawText,onDomainDispatch)){
+        } else if (localInterruptIdeaMode(rawText, onDomainDispatch)) {
             return true
         }
 
@@ -107,7 +106,7 @@ object BDAIDomainManager {
      * 本地拦截 切换到闪念胶囊模式
      */
     private fun localInterruptIdeaMode(rawText: String, onDomainDispatch: OnDomainDispatch?): Boolean {
-        if (rawText in  listOf<String>("闪念胶囊","闪念模式","胶囊模式")) {
+        if (rawText in listOf<String>("闪念胶囊", "闪念模式", "胶囊模式")) {
 
             onDomainDispatch?.onToIdeaMode()
 
