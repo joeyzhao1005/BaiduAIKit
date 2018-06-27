@@ -78,7 +78,9 @@ public class BDAIRecognizer {
     public void start(Map<String, Object> params) {
         String json = new JSONObject(params).toString();
         Zog.i("asr params(反馈请带上此行日志):" + json);
-        asr.send(SpeechConstant.ASR_START, json, null, 0, 0);
+        if (asr != null) {
+            asr.send(SpeechConstant.ASR_START, json, null, 0, 0);
+        }
     }
 
 
@@ -87,7 +89,9 @@ public class BDAIRecognizer {
      */
     public void stop() {
         Zog.i("停止录音");
-        asr.send(SpeechConstant.ASR_STOP, "{}", null, 0, 0);
+        if (asr != null) {
+            asr.send(SpeechConstant.ASR_STOP, "{}", null, 0, 0);
+        }
     }
 
     /**

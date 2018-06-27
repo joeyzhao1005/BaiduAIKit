@@ -2,6 +2,7 @@ package com.kit.baiduai
 
 import android.app.Application
 import com.baidu.speech.asr.SpeechConstant
+import com.kit.app.application.AppMaster
 import com.kit.baiduai.control.BDAIRecognizer
 import com.kit.baiduai.recognization.IRecogListener
 import com.kit.baiduai.recognization.PidBuilder
@@ -42,7 +43,7 @@ class ASR {//语音听写
         }
         this.recogListener = rl
         //val statusRecogListener = StatusRecogListener()
-        bdaiRecognizer = BDAIRecognizer(ResWrapper.getInstance().applicationContext, recogListener)
+        bdaiRecognizer = (BDAIRecognizer(AppMaster.getInstance().appContext, recogListener))
         return this
     }
 
@@ -110,7 +111,7 @@ class NLU {//语义理解
         this.recogListener = rl
         initParams()
         //val statusRecogListener = StatusRecogListener()
-        bdaiRecognizer = BDAIRecognizer(ResWrapper.getInstance().applicationContext, recogListener)
+        bdaiRecognizer = BDAIRecognizer(AppMaster.getInstance().appContext, recogListener)
         return this
     }
 

@@ -1,6 +1,7 @@
 package com.kit.baiduai.domain
 
 import android.content.pm.PackageInfo
+import com.kit.app.application.AppMaster
 import com.kit.baiduai.enmus.BDAIDomain
 import com.kit.utils.*
 import com.kit.utils.log.Zog
@@ -149,14 +150,14 @@ object BDAIDomainManager {
             }
 
             Observable.create<PackageInfo> { e ->
-                val packageInfos = AppUtils.getPackageNamesByAppName(ResWrapper.getInstance().applicationContext, appName)
+                val packageInfos = AppUtils.getPackageNamesByAppName(AppMaster.getInstance().appContext, appName)
                 var packageInfo: PackageInfo? = null
 
                 if (packageInfos == null) {
                     packageInfo = PackageInfo()
                 } else {
                     for (pkinfo in packageInfos) {
-                        val thisAppName = pkinfo.applicationInfo.loadLabel(ResWrapper.getInstance().applicationContext.packageManager).toString()
+                        val thisAppName = pkinfo.applicationInfo.loadLabel(AppMaster.getInstance().appContext.packageManager).toString()
                         if (thisAppName == appName) {
                             packageInfo = pkinfo
                             break
