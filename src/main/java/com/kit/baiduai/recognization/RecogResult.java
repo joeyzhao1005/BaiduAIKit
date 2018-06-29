@@ -26,6 +26,7 @@ public class RecogResult {
             JSONObject json = new JSONObject(jsonStr);
             int error = json.optInt("error");
             int subError = json.optInt("sub_error");
+            result.setSubError(subError);
             result.setError(error);
             result.setDesc(json.optString("desc"));
             result.setResultType(json.optString("result_type"));

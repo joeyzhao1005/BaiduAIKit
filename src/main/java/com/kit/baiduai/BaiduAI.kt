@@ -61,7 +61,8 @@ class ASR {//语音听写
                 , SpeechConstant.OUT_FILE to outputPath
                 , SpeechConstant.PID to pid
                 , SpeechConstant.DISABLE_PUNCTUATION to false
-                , SpeechConstant.ACCEPT_AUDIO_VOLUME to false)
+                , SpeechConstant.ACCEPT_AUDIO_VOLUME to false
+        )
         return this
     }
 
@@ -103,6 +104,7 @@ class NLU {//语义理解
     }
 
 
+
     fun create(rl: IRecogListener): NLU {
         if (bdaiRecognizer != null) {
             return this
@@ -122,12 +124,11 @@ class NLU {//语义理解
                 .supportNlu(true)
                 .model(PidBuilder.INPUT) //如识别短句，不需要需要逗号，将PidBuilder.INPUT改为搜索模型PidBuilder.SEARCH
                 .toPId()
-        Zog.i("pid:" + pid)
-
         params = hashMapOf(SpeechConstant.ACCEPT_AUDIO_DATA to false
                 , SpeechConstant.PID to pid
                 , SpeechConstant.DISABLE_PUNCTUATION to false
-                , SpeechConstant.ACCEPT_AUDIO_VOLUME to false)
+                , SpeechConstant.ACCEPT_AUDIO_VOLUME to false
+                , SpeechConstant.VAD_ENDPOINT_TIMEOUT to 50)
     }
 
     private var recogListener: IRecogListener? = null
