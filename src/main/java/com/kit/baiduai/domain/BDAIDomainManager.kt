@@ -78,7 +78,7 @@ object BDAIDomainManager {
                 }
 
                 else -> {
-                    Zog.i("onDomainWeather:" + nluResult)
+                    Zog.i("dispatch nluResult:" + nluResult)
                     onDomainDispatch?.onDomainNone(nluResult)
                 }
             }
