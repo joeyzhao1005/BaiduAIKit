@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 
 dependencies {
     //    implementation fileTree(dir: 'libs', include: '*.jar')
-    implementation fileTree(include: ['*.jar'], dir: '../libs_baiduai')
+    implementation fileTree(include: ['*.jar'], dir: '../libs_baiduai_online')
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     implementation "io.reactivex.rxjava2:rxjava:${rxjava_version}"
@@ -30,7 +30,7 @@ android {
 
     sourceSets {
         main {
-            jniLibs.srcDirs = ['libs', '../libs_baiduai']
+            jniLibs.srcDirs = ['libs', '../libs_baiduai_online']
             assets.srcDirs = ['assets',"../assets_baiduai"]
         }
 
