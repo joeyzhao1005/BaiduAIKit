@@ -1,17 +1,13 @@
 package com.kit.baiduai
 
-import android.app.Application
 import com.baidu.speech.asr.SpeechConstant
 import com.kit.app.application.AppMaster
 import com.kit.baiduai.control.BDAIRecognizer
 import com.kit.baiduai.recognization.IRecogListener
 import com.kit.baiduai.recognization.PidBuilder
-import com.kit.baiduai.recognization.StatusRecogListener
 import com.kit.utils.FileUtils
 import com.kit.utils.RandomUtils
-import com.kit.utils.ResWrapper
 import com.kit.utils.StringUtils
-import com.kit.utils.log.Zog
 import java.io.File
 
 /**
