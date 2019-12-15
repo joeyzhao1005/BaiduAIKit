@@ -8,14 +8,13 @@ import com.kit.baiduai.recognization.PidBuilder
 import com.kit.utils.FileUtils
 import com.kit.utils.RandomUtils
 import com.kit.utils.StringUtils
+import com.kit.utils.log.Zog
 import java.io.File
 
 /**
- * Created by Zhao on 2017/12/23.
+ * 语音听写
  */
-
-
-class ASR {//语音听写
+class ASR {
 
     fun cancel() {
         bdaiRecognizer?.cancel()
@@ -34,6 +33,7 @@ class ASR {//语音听写
 
 
     fun create(rl: IRecogListener): ASR {
+        Zog.d("ASR created")
         if (bdaiRecognizer != null) {
             return this
         }
@@ -77,8 +77,10 @@ class ASR {//语音听写
     }
 }
 
-
-class NLU {//语义理解
+/**
+ * 语义理解
+ */
+class NLU {
 
     fun cancel() {
         bdaiRecognizer?.cancel()
@@ -100,8 +102,8 @@ class NLU {//语义理解
     }
 
 
-
     fun create(rl: IRecogListener): NLU {
+        Zog.d("NLU created")
         if (bdaiRecognizer != null) {
             return this
         }
