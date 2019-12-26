@@ -5,12 +5,10 @@ import com.kit.app.application.AppMaster
 import com.kit.baiduai.enmus.BDAIDomain
 import com.kit.utils.*
 import com.kit.utils.log.Zog
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-import io.reactivex.observers.DisposableObserver
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.json.JSONObject
 
 /**
@@ -122,34 +120,9 @@ object BDAIDomainManager {
      */
     private fun localInterruptApp(rawText: String, onDomainDispatch: OnDomainDispatch?): Boolean {
         if (rawText.startsWith("打开") || rawText.startsWith("启动")) {
-            var appName = rawText.substring(2)
-            Zog.i("appName:$appName")
-
-
-            val disposableObserver = object : DisposableObserver<PackageInfo>() {
-                override fun onNext(packageInfo: PackageInfo) {
-                    if (!this.isDisposed) {
-                        Zog.i("onNext")
-                        val map = hashMapOf("_appname" to appName, "appname" to appName, "packageName" to packageInfo.packageName)
-                        val bdaiDomainEntity = BDAIDomainEntity("app", "open", map, 1.00)
-                        onDomainDispatch?.onDomainApp(bdaiDomainEntity)
-                    }
-                }
-
-                override fun onError(e: Throwable) {
-                    if (!this.isDisposed) {
-                        Zog.i("onError")
-                    }
-                }
-
-                override fun onComplete() {
-                    if (!this.isDisposed) {
-                        Zog.i("onComplete")
-                    }
-                }
-            }
-
-            Observable.create<PackageInfo> { e ->
+            GlobalScope.launch(Dispatchers.IO) {
+                var appName = rawText.substring(2)
+                Zog.i("appName:$appName")
                 val packageInfos = AppUtils.getPackageNamesByAppName(AppMaster.getInstance().appContext, appName)
                 var packageInfo: PackageInfo? = null
 
@@ -163,19 +136,21 @@ object BDAIDomainManager {
                             break
                         }
                     }
-                    if (packageInfo == null)
+                    if (packageInfo == null) {
                         packageInfo = packageInfos[0]
+                    }
                 }
 
-                e.onNext(packageInfo ?: PackageInfo())
-                e.onComplete()
+                if (packageInfo == null) {
+                    packageInfo = PackageInfo()
+                }
+
+                withContext(Dispatchers.Main) {
+                    val map = hashMapOf("_appname" to appName, "appname" to appName, "packageName" to packageInfo!!.packageName)
+                    val bdaiDomainEntity = BDAIDomainEntity("app", "open", map, 1.00)
+                    onDomainDispatch?.onDomainApp(bdaiDomainEntity)
+                }
             }
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeWith(disposableObserver)
-
-            disposables.add(disposableObserver)
-
 
             return true
         }
@@ -194,11 +169,7 @@ object BDAIDomainManager {
 
 
     fun destory() {
-        disposables.clear()
     }
-
-
-    val disposables = CompositeDisposable()
 
 
 }

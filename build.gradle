@@ -6,8 +6,14 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: '../libs_baiduai_online')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-    implementation "io.reactivex.rxjava2:rxjava:${rxjava_version}"
-    implementation "io.reactivex.rxjava2:rxandroid:${rxandroid_version}"
+
+
+    //协程两者
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines"
+
+//    implementation "io.reactivex.rxjava2:rxjava:${rxjava_version}"
+//    implementation "io.reactivex.rxjava2:rxandroid:${rxandroid_version}"
 
     implementation "com.google.code.gson:gson:${gson}"
 
