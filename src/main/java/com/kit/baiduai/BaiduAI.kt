@@ -155,7 +155,8 @@ class BaiduAI private constructor() {
         }
 
         fun suggestion(): String {
-            val default = listOf("你可以对我说：今天天气怎么样？", "语音打开APP，请大声对我说：打开微信", "我有速记功能，请对我说：闪念胶囊！")
+//            val default = listOf("你可以对我说：今天天气怎么样？", "语音打开APP，请大声对我说：打开微信", "我有速记功能，请对我说：闪念胶囊！")
+            val default = listOf("你可以对我说：今天天气怎么样？", "语音打开APP，请大声对我说：打开微信")
             return default[RandomUtils.getRandomIntNum(0, default.size - 1)]
         }
 
