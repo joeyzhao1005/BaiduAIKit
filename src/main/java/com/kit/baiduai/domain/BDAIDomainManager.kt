@@ -136,7 +136,7 @@ object BDAIDomainManager {
                             break
                         }
                     }
-                    if (packageInfo == null) {
+                    if (packageInfo == null && !packageInfos.isNullOrEmpty()) {
                         packageInfo = packageInfos[0]
                     }
                 }
