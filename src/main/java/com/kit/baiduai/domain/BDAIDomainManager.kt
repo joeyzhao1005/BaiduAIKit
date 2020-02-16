@@ -38,7 +38,15 @@ object BDAIDomainManager {
             Zog.i("没有解析出什么鸟")
             onDomainDispatch?.onDomainNone(nluResult)
         } else {
-            val res0 = if (results[0] == null) null else (results[0] as JSONObject)
+            val res0 = when {
+                results[0] is JSONObject -> {
+                    results[0] as JSONObject
+                }
+
+                else -> {
+                    null
+                }
+            }
 
             if (res0 == null) {
                 onDomainDispatch?.onDomainNone(nluResult)
