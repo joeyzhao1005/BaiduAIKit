@@ -171,7 +171,7 @@ object BDAIDomainManager {
         fun onDomainApp(baiduDomainEntity: BDAIDomainEntity)
         fun onToIdeaMode()
 
-        fun onDomainNone(string: String?)
+        fun onDomainNone(text: String?)
 
     }
 
