@@ -154,9 +154,9 @@ object BDAIDomainManager {
                 }
 
                 withContext(Dispatchers.Main) {
-                    val map = hashMapOf("_appname" to appName, "appname" to appName, "packageName" to packageInfo!!.packageName)
-                    val bdaiDomainEntity = BDAIDomainEntity("app", "open", map, 1.00)
-                    onDomainDispatch?.onDomainApp(bdaiDomainEntity)
+                    val map = hashMapOf("_appname" to appName, "appname" to appName, "packageName" to packageInfo.packageName)
+                    val bdAiDomainEntity = BDAIDomainEntity("app", "open", map, 1.00)
+                    onDomainDispatch?.onDomainApp(bdAiDomainEntity)
                 }
             }
 
