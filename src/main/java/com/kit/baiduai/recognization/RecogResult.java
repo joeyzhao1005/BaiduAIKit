@@ -1,27 +1,48 @@
 package com.kit.baiduai.recognization;
 
+import com.google.gson.annotations.SerializedName;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 /**
- * Created by fujiayi on 2017/6/24.
+ * @author joeyzhao
  */
 public class RecogResult {
     private static final int ERROR_NONE = 0;
 
-    private String origalJson;
+    @SerializedName("originalJson")
+    private String originalJson;
+
+    @SerializedName("resultsRecognition")
     private String[] resultsRecognition;
-    private String origalResult;
-    private String sn; // 日志id， 请求有问题请提问带上sn
+
+    @SerializedName("originalResult")
+    private String originalResult;
+
+    /**
+     * 日志id， 请求有问题请提问带上sn
+     */
+    @SerializedName("sn")
+    private String sn;
+
+    @SerializedName("desc")
     private String desc;
+
+    @SerializedName("resultType")
     private String resultType;
+
+    @SerializedName("error")
     private int error = -1;
+
+    @SerializedName("subError")
     private int subError = -1;
 
     public static RecogResult parseJson(String jsonStr) {
         RecogResult result = new RecogResult();
-        result.setOrigalJson(jsonStr);
+        result.setOriginalJson(jsonStr);
         try {
             JSONObject json = new JSONObject(jsonStr);
             int error = json.optInt("error");
@@ -31,9 +52,9 @@ public class RecogResult {
             result.setDesc(json.optString("desc"));
             result.setResultType(json.optString("result_type"));
             if (error == ERROR_NONE) {
-                result.setOrigalResult(json.getString("origin_result"));
+                result.setOriginalResult(json.getString("origin_result"));
                 JSONArray arr = json.optJSONArray("results_recognition");
-                if (arr!=null){
+                if (arr != null) {
                     int size = arr.length();
                     String[] recogs = new String[size];
                     for (int i = 0; i < size; i++) {
@@ -51,11 +72,11 @@ public class RecogResult {
         return result;
     }
 
-    public boolean hasError(){
+    public boolean hasError() {
         return error != ERROR_NONE;
     }
 
-    public boolean isFinalResult(){
+    public boolean isFinalResult() {
         return "final_result".equals(resultType);
     }
 
@@ -64,16 +85,16 @@ public class RecogResult {
         return "partial_result".equals(resultType);
     }
 
-    public boolean isNluResult(){
+    public boolean isNluResult() {
         return "nlu_result".equals(resultType);
     }
 
-    public String getOrigalJson() {
-        return origalJson;
+    public String getOriginalJson() {
+        return originalJson;
     }
 
-    public void setOrigalJson(String origalJson) {
-        this.origalJson = origalJson;
+    public void setOriginalJson(String originalJson) {
+        this.originalJson = originalJson;
     }
 
     public String[] getResultsRecognition() {
@@ -108,12 +129,12 @@ public class RecogResult {
         this.desc = desc;
     }
 
-    public String getOrigalResult() {
-        return origalResult;
+    public String getOriginalResult() {
+        return originalResult;
     }
 
-    public void setOrigalResult(String origalResult) {
-        this.origalResult = origalResult;
+    public void setOriginalResult(String originalResult) {
+        this.originalResult = originalResult;
     }
 
     public String getResultType() {
