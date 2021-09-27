@@ -39,7 +39,7 @@ class ASR {
         }
         this.recogListener = rl
         //val statusRecogListener = StatusRecogListener()
-        bdaiRecognizer = (BDAIRecognizer(AppMaster.getInstance().appContext, recogListener))
+        bdaiRecognizer = (BDAIRecognizer(AppMaster.appContext, recogListener))
         return this
     }
 
@@ -111,7 +111,7 @@ class NLU {
         this.recogListener = rl
         initParams()
         //val statusRecogListener = StatusRecogListener()
-        bdaiRecognizer = BDAIRecognizer(AppMaster.getInstance().appContext, recogListener)
+        bdaiRecognizer = BDAIRecognizer(AppMaster.appContext, recogListener)
         return this
     }
 

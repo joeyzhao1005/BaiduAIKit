@@ -131,14 +131,14 @@ object BDAIDomainManager {
             GlobalScope.launch(Dispatchers.IO) {
                 var appName = rawText.substring(2)
                 Zog.i("appName:$appName")
-                val packageInfos = AppUtils.getPackageNamesByAppName(AppMaster.getInstance().appContext, appName)
+                val packageInfos = AppUtils.getPackageNamesByAppName(AppMaster.appContext, appName)
                 var packageInfo: PackageInfo? = null
 
                 if (packageInfos == null) {
                     packageInfo = PackageInfo()
                 } else {
                     for (pkinfo in packageInfos) {
-                        val thisAppName = pkinfo.applicationInfo.loadLabel(AppMaster.getInstance().appContext.packageManager).toString()
+                        val thisAppName = pkinfo.applicationInfo.loadLabel(AppMaster.appContext.packageManager).toString()
                         if (thisAppName == appName) {
                             packageInfo = pkinfo
                             break
