@@ -176,7 +176,7 @@ object BDAIDomainManager {
     }
 
 
-    fun destory() {
+    fun destroy() {
     }
 
 

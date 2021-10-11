@@ -24,7 +24,7 @@ class ASR {
         bdaiRecognizer?.start(params)
     }
 
-    fun destory() {
+    fun destroy() {
         params = null
         recogListener = null
         bdaiRecognizer?.release()
@@ -94,7 +94,7 @@ class NLU {
         bdaiRecognizer?.start(params)
     }
 
-    fun destory() {
+    fun destroy() {
         params = null
         recogListener = null
         bdaiRecognizer?.release()
